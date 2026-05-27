@@ -2,11 +2,9 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FRUZO AI | Luxury Fruit Box</title>
+<title>FRUZO AI | Unboxing Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -25,63 +23,15 @@ color:white;
 overflow-x:hidden;
 }
 
-body::before{
-content:'';
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top left,#ff4d6d22,transparent 30%),
-radial-gradient(circle at bottom right,#00ffd522,transparent 30%),
-linear-gradient(135deg,#0b0b0b,#000);
-z-index:-1;
-}
-
-header{
-padding:22px 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:999;
-background:#00000080;
-backdrop-filter:blur(14px);
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-font-size:34px;
-font-weight:900;
-background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-nav a{
-text-decoration:none;
-color:white;
-margin:0 12px;
-transition:.3s;
-}
-
-nav a:hover{
-color:#ffd166;
-}
+/* ===== HERO ===== */
 
 .hero{
-min-height:90vh;
-display:flex;
-justify-content:center;
-align-items:center;
 text-align:center;
-padding:70px 6%;
+padding:80px 20px;
 }
 
 .hero h1{
-font-size:72px;
-line-height:1.2;
-margin-bottom:25px;
-font-weight:900;
+font-size:60px;
 }
 
 .gradient{
@@ -90,189 +40,117 @@ background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
 -webkit-text-fill-color:transparent;
 }
 
-.hero p{
-font-size:20px;
-line-height:2;
-color:#d7d7d7;
-margin-bottom:35px;
-}
-
-.hero button{
-padding:20px 45px;
-border:none;
-border-radius:60px;
-background:linear-gradient(45deg,#ff5f7e,#ff9966);
-color:white;
-font-size:18px;
-font-weight:800;
-cursor:pointer;
-box-shadow:0 20px 40px rgba(255,95,126,.35);
-transition:.4s;
-}
-
-.hero button:hover{
-transform:translateY(-5px);
-}
-
-.section{
-padding:90px 6%;
-}
-
-.section-title{
-text-align:center;
-font-size:46px;
-margin-bottom:60px;
-font-weight:900;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-}
-
-.card{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-border-radius:30px;
-overflow:hidden;
-backdrop-filter:blur(10px);
-transition:.4s;
-}
-
-.card:hover{
-transform:translateY(-8px);
-}
-
-.card img{
-width:100%;
-height:230px;
-object-fit:cover;
-}
-
-.card-content{
-padding:22px;
-}
-
-.card h3{
-font-size:24px;
-margin-bottom:10px;
-}
-
-.price{
-color:#ffd166;
-font-weight:800;
-margin-bottom:12px;
-}
-
-.qty{
-display:flex;
-align-items:center;
-gap:10px;
-margin-top:14px;
-}
-
-.qty input{
-width:70px;
-padding:10px;
-border:none;
-border-radius:12px;
-background:#1b1b1b;
-color:white;
-text-align:center;
-}
-
-.add-btn{
-margin-top:18px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:16px;
-background:linear-gradient(45deg,#00ffd5,#00b4ff);
-font-weight:800;
-cursor:pointer;
-transition:.3s;
-color:white;
-}
-
-.add-btn:hover{
-transform:scale(1.03);
-}
+/* ===== BUILDER ===== */
 
 .builder{
 display:grid;
-grid-template-columns:1fr 450px;
-gap:40px;
-align-items:start;
+grid-template-columns:1fr 420px;
+gap:30px;
+padding:40px;
 }
 
+/* ===== 3D BOX ===== */
+
 .preview-panel{
+perspective:1400px;
 position:sticky;
-top:100px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-border-radius:35px;
-padding:25px;
-backdrop-filter:blur(14px);
+top:20px;
 }
 
 .box-preview{
-height:500px;
+height:520px;
 display:flex;
 justify-content:center;
 align-items:center;
-margin-bottom:25px;
 }
 
-.real-box{
-width:430px;
-height:430px;
+.box-3d{
+width:380px;
+height:380px;
 position:relative;
-display:flex;
-justify-content:center;
-align-items:center;
-filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));
+transform-style:preserve-3d;
+transform:rotateX(-18deg) rotateY(25deg);
 animation:float 4s ease-in-out infinite;
+transition:1s;
 }
 
 @keyframes float{
-
-0%{
-transform:translateY(0px);
+0%{transform:translateY(0) rotateX(-18deg) rotateY(25deg);}
+50%{transform:translateY(-10px) rotateX(-18deg) rotateY(25deg);}
+100%{transform:translateY(0) rotateX(-18deg) rotateY(25deg);}
 }
 
-50%{
-transform:translateY(-12px);
-}
+/* ===== BOX FACES ===== */
 
-100%{
-transform:translateY(0px);
-}
-
-}
-
-.box-base{
+.box-face{
 position:absolute;
 width:100%;
 height:100%;
-object-fit:contain;
-z-index:1;
+background:linear-gradient(145deg,#2a2a2a,#111);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:inset 0 0 25px rgba(0,0,0,.6);
 }
+
+.front{transform:translateZ(60px);}
+.back{transform:rotateY(180deg) translateZ(60px);}
+.left{transform:rotateY(-90deg) translateZ(60px);}
+.right{transform:rotateY(90deg) translateZ(60px);}
+.bottom{
+transform:rotateX(90deg) translateZ(60px);
+background:#111;
+}
+
+/* ===== LID ===== */
+
+.box-lid{
+position:absolute;
+width:100%;
+height:100%;
+background:linear-gradient(145deg,#3a3a3a,#111);
+transform:rotateX(90deg) translateZ(60px);
+transform-origin:top;
+transition:0.9s cubic-bezier(.2,.8,.2,1);
+}
+
+.box-3d.open .box-lid{
+transform:rotateX(170deg) translateZ(120px);
+}
+
+/* ===== FILL EFFECT ===== */
+
+.box-3d.open{
+transform:rotateX(-8deg) rotateY(35deg) scale(1.05);
+}
+
+/* ===== FRUITS ===== */
 
 #fruitLayer{
 position:absolute;
 inset:0;
-z-index:2;
+z-index:5;
 }
 
 .real-fruit{
 position:absolute;
-width:90px;
-height:90px;
+width:70px;
+height:70px;
 object-fit:contain;
-animation:drop .5s ease;
-filter:drop-shadow(0 10px 10px rgba(0,0,0,.3));
+animation:drop .6s ease forwards;
+filter:drop-shadow(0 10px 10px rgba(0,0,0,.4));
 }
+
+@keyframes drop{
+0%{
+transform:translateY(-80px) scale(.3) rotate(-30deg);
+opacity:0;
+}
+100%{
+transform:translateY(0) scale(1) rotate(0);
+opacity:1;
+}
+}
+
+/* ===== WRAP ===== */
 
 .wrap-image{
 position:absolute;
@@ -280,140 +158,57 @@ inset:0;
 width:100%;
 height:100%;
 object-fit:contain;
-z-index:5;
+z-index:10;
 pointer-events:none;
+opacity:.95;
 }
 
-@keyframes drop{
+/* ===== PARTICLES ===== */
 
-from{
-transform:
-translateY(-40px)
-scale(.5)
-rotate(-20deg);
-
-opacity:0;
+.particle{
+position:absolute;
+width:6px;
+height:6px;
+background:#ffd166;
+border-radius:50%;
+animation:floatUp 2s linear forwards;
+opacity:.8;
 }
 
-to{
-transform:
-translateY(0)
-scale(1)
-rotate(0);
-
-opacity:1;
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-120px);opacity:0;}
 }
 
-}
+/* ===== BUTTONS ===== */
 
-.summary{
-margin-top:20px;
-line-height:2;
-color:#ddd;
-}
-
-.total{
-font-size:34px;
-font-weight:900;
-color:#ffd166;
-margin:20px 0;
-}
-
-.cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.cart-item button{
+.ai-btn{
+width:100%;
+padding:16px;
 border:none;
-padding:6px 12px;
-border-radius:10px;
-cursor:pointer;
-font-weight:700;
-}
-
-.remove{
-background:#ff4d6d;
+border-radius:14px;
+font-weight:900;
+background:linear-gradient(45deg,#ff5f7e,#ff9966);
 color:white;
+cursor:pointer;
+margin-top:15px;
 }
 
 .clear{
 width:100%;
 padding:14px;
-border:none;
-border-radius:16px;
+margin-top:10px;
 background:#222;
 color:white;
-margin-top:15px;
-cursor:pointer;
+border:none;
+border-radius:12px;
 }
 
-.ai-btn{
-width:100%;
-padding:18px;
-border:none;
-border-radius:18px;
-background:linear-gradient(45deg,#ff5f7e,#ff9966);
-font-size:18px;
+.total{
+font-size:28px;
 font-weight:900;
-color:white;
-cursor:pointer;
-margin-top:18px;
-}
-
-.loader{
-display:none;
-text-align:center;
-margin-top:15px;
-color:#00ffd5;
-font-weight:700;
-animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-50%{
-opacity:.4;
-}
-}
-
-.form-group{
-margin-top:15px;
-}
-
-.form-group input,
-.form-group textarea{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-background:#151515;
-color:white;
-}
-
-footer{
-padding:40px;
-text-align:center;
-color:#999;
-}
-
-@media(max-width:950px){
-
-.hero h1{
-font-size:42px;
-}
-
-.builder{
-grid-template-columns:1fr;
-}
-
-.preview-panel{
-position:relative;
-top:0;
-}
-
+color:#ffd166;
+margin-top:10px;
 }
 
 </style>
@@ -422,455 +217,127 @@ top:0;
 
 <body>
 
-<header>
-
-<div class="logo">
-FRUZO AI
+<div class="hero">
+<h1>🍓 <span class="gradient">Unboxing Pro</span> Experience</h1>
 </div>
-
-<nav>
-<a href="#fruits">الفواكه</a>
-<a href="#addons">الإضافات</a>
-<a href="#wraps">التغليف</a>
-</nav>
-
-</header>
-
-<section class="hero">
-
-<div>
-
-<h1>
-اصنع <span class="gradient">بوكس الفاكهة</span><br>
-الخيالي الخاص بك ✨
-</h1>
-
-<p>
-Luxury Fruit Experience — AI Preview — Premium Packaging
-</p>
-
-<button onclick="document.getElementById('fruits').scrollIntoView({behavior:'smooth'})">
-ابدأ الآن
-</button>
-
-</div>
-
-</section>
-
-<section class="section">
 
 <div class="builder">
 
+<!-- PRODUCTS -->
 <div>
-
-<h2 class="section-title" id="fruits">
-الفواكه 🍓
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>فراولة</h3>
-
-<div class="price">45 جنيه</div>
-
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" id="q1">
+<button class="ai-btn" onclick="addFruit('https://pngimg.com/d/strawberry_PNG2593.png','فراولة',45)">إضافة فراولة</button>
+<button class="ai-btn" onclick="addFruit('https://pngimg.com/d/mango_PNG9168.png','مانجو',55)">إضافة مانجو</button>
+<button class="ai-btn" onclick="setWrap()">اختيار تغليف</button>
 </div>
 
-<button class="add-btn"
-
-onclick="addFruit(
-'https://pngimg.com/d/strawberry_PNG2593.png',
-'فراولة',
-45,
-document.getElementById('q1').value
-)">
-إضافة
-</button>
-
-</div>
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>مانجو</h3>
-
-<div class="price">55 جنيه</div>
-
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" id="q2">
-</div>
-
-<button class="add-btn"
-
-onclick="addFruit(
-'https://pngimg.com/d/mango_PNG9168.png',
-'مانجو',
-55,
-document.getElementById('q2').value
-)">
-إضافة
-</button>
-
-</div>
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>كيوي</h3>
-
-<div class="price">60 جنيه</div>
-
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" id="q3">
-</div>
-
-<button class="add-btn"
-
-onclick="addFruit(
-'https://pngimg.com/d/kiwi_PNG4038.png',
-'كيوي',
-60,
-document.getElementById('q3').value
-)">
-إضافة
-</button>
-
-</div>
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>توت</h3>
-
-<div class="price">70 جنيه</div>
-
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" id="q4">
-</div>
-
-<button class="add-btn"
-
-onclick="addFruit(
-'https://pngimg.com/d/blueberries_PNG73.png',
-'توت',
-70,
-document.getElementById('q4').value
-)">
-إضافة
-</button>
-
-</div>
-</div>
-
-</div>
-
-<h2 class="section-title" id="wraps" style="margin-top:80px;">
-التغليف 🎁
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1464306076886-da185f6a9d05?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>رومانسي</h3>
-
-<div class="price">120 جنيه</div>
-
-<button class="add-btn"
-onclick="setWrap('romantic',120)">
-اختيار
-</button>
-
-</div>
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ff?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>Luxury</h3>
-
-<div class="price">150 جنيه</div>
-
-<button class="add-btn"
-onclick="setWrap('luxury',150)">
-اختيار
-</button>
-
-</div>
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop">
-
-<div class="card-content">
-
-<h3>شفاف</h3>
-
-<div class="price">90 جنيه</div>
-
-<button class="add-btn"
-onclick="setWrap('transparent',90)">
-اختيار
-</button>
-
-</div>
-</div>
-
-</div>
-
-</div>
-
+<!-- BOX -->
 <div class="preview-panel">
 
 <div class="box-preview">
 
-<div class="real-box">
+<div class="box-3d" id="box">
 
-<img class="box-base"
-src="https://pngimg.com/d/gift_box_PNG53.png">
+<div class="box-face front"></div>
+<div class="box-face back"></div>
+<div class="box-face left"></div>
+<div class="box-face right"></div>
+<div class="box-face bottom"></div>
+
+<div class="box-lid"></div>
 
 <div id="fruitLayer"></div>
 
-<img class="wrap-image"
-id="wrapImage"
-src="">
+<img class="wrap-image" id="wrapImage">
 
 </div>
 
 </div>
 
-<div class="summary" id="summary">
-لا يوجد طلبات بعد
-</div>
+<div class="total" id="total">0 جنيه</div>
 
-<div class="total" id="total">
-0 جنيه
-</div>
-
-<div class="loader" id="loader">
-✨ AI Generating Your Luxury Box...
-</div>
-
-<button class="clear" onclick="clearAll()">
-مسح الطلب
-</button>
-
-<button class="ai-btn" onclick="generateAI()">
-Generate AI Preview ✨
-</button>
-
-<div class="form-group">
-<input type="text" placeholder="الاسم بالكامل">
-</div>
-
-<div class="form-group">
-<input type="tel" placeholder="رقم الهاتف">
-</div>
-
-<div class="form-group">
-<textarea rows="4" placeholder="العنوان والملاحظات"></textarea>
-</div>
+<button class="clear" onclick="clearAll()">مسح الكل</button>
+<button class="ai-btn" onclick="unbox()">🎁 Unbox AI</button>
 
 </div>
 
 </div>
-
-</section>
-
-<footer>
-FRUZO AI © 2026
-</footer>
 
 <script>
 
 let total=0;
+let opened=false;
 
-let cart=[];
+function addFruit(img,name,price){
 
-function addFruit(image,name,price,qty){
+document.getElementById('box').classList.add('open');
 
-qty=parseInt(qty);
+for(let i=0;i<1;i++){
 
-for(let i=0;i<qty;i++){
+let f=document.createElement('img');
+f.src=img;
+f.className='real-fruit';
 
-let fruit=document.createElement('img');
+f.style.left=Math.random()*250+'px';
+f.style.top=Math.random()*250+'px';
 
-fruit.className='real-fruit';
+document.getElementById('fruitLayer').appendChild(f);
 
-fruit.src=image;
-
-fruit.style.left=
-(Math.random()*260+40)+'px';
-
-fruit.style.top=
-(Math.random()*240+50)+'px';
-
-fruit.style.transform=
-`rotate(${Math.random()*40-20}deg)`;
-
-document
-.getElementById('fruitLayer')
-.appendChild(fruit);
+spawnParticles();
 
 }
-
-let itemTotal=price*qty;
-
-cart.push({
-name:name,
-price:itemTotal
-});
-
-total+=itemTotal;
-
-updateCart();
-
-}
-
-function setWrap(type,price){
-
-const wrap=
-document.getElementById('wrapImage');
-
-if(type==='romantic'){
-
-wrap.src=
-'https://pngimg.com/d/ribbon_PNG1547.png';
-
-}
-
-if(type==='luxury'){
-
-wrap.src=
-'https://pngimg.com/d/gift_PNG5953.png';
-
-}
-
-if(type==='transparent'){
-
-wrap.src=
-'https://pngimg.com/d/plastic_bag_PNG17.png';
-
-}
-
-cart.push({
-name:'🎁 تغليف '+type,
-price:price
-});
 
 total+=price;
-
-updateCart();
-
-}
-
-function updateCart(){
-
-let summary='';
-
-cart.forEach((item,index)=>{
-
-summary+=`
-
-<div class="cart-item">
-
-<span>${item.name}</span>
-
-<div>
-
-<span>${item.price}ج</span>
-
-<button class="remove"
-onclick="removeItem(${index},${item.price})">
-
-✕
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document.getElementById('summary').innerHTML=summary;
-
-document.getElementById('total').innerHTML=
-total+' جنيه';
+update();
 
 }
 
-function removeItem(index,price){
+function setWrap(){
+document.getElementById('wrapImage').src=
+'https://pngimg.com/d/gift_PNG5953.png';
 
-cart.splice(index,1);
+total+=120;
+update();
+}
 
-total-=price;
+function update(){
+document.getElementById('total').innerText=total+' جنيه';
+}
 
-updateCart();
+function spawnParticles(){
+
+for(let i=0;i<8;i++){
+
+let p=document.createElement('div');
+p.className='particle';
+p.style.left=Math.random()*300+'px';
+p.style.top=Math.random()*300+'px';
+
+document.getElementById('fruitLayer').appendChild(p);
+
+setTimeout(()=>p.remove(),2000);
+
+}
+
+}
+
+function unbox(){
+
+let box=document.getElementById('box');
+
+box.classList.add('open');
+
+setTimeout(()=>{
+alert('🎁 Unboxing Completed!');
+},1200);
 
 }
 
 function clearAll(){
 
-cart=[];
-
-total=0;
-
 document.getElementById('fruitLayer').innerHTML='';
-
 document.getElementById('wrapImage').src='';
-
-document.getElementById('summary').innerHTML=
-'لا يوجد طلبات بعد';
-
-document.getElementById('total').innerHTML=
-'0 جنيه';
-
-}
-
-function generateAI(){
-
-document.getElementById('loader').style.display='block';
-
-setTimeout(()=>{
-
-document.getElementById('loader').style.display='none';
-
-alert('✨ AI Preview Generated Successfully');
-
-},2500);
+total=0;
+update();
 
 }
 
