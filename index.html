@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FRUZO AI | Luxury Fruit Builder</title>
+<title>FRUZO AI | Luxury Fruit Box</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -28,10 +30,10 @@ content:'';
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at top left,#ff4d6d33,transparent 30%),
-radial-gradient(circle at bottom right,#00ffd533,transparent 30%),
+radial-gradient(circle at top left,#ff4d6d22,transparent 30%),
+radial-gradient(circle at bottom right,#00ffd522,transparent 30%),
 linear-gradient(135deg,#0b0b0b,#000);
-z-index:-2;
+z-index:-1;
 }
 
 header{
@@ -125,7 +127,7 @@ font-weight:900;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:25px;
 }
 
@@ -144,7 +146,7 @@ transform:translateY(-8px);
 
 .card img{
 width:100%;
-height:220px;
+height:230px;
 object-fit:cover;
 }
 
@@ -190,6 +192,7 @@ background:linear-gradient(45deg,#00ffd5,#00b4ff);
 font-weight:800;
 cursor:pointer;
 transition:.3s;
+color:white;
 }
 
 .add-btn:hover{
@@ -198,7 +201,7 @@ transform:scale(1.03);
 
 .builder{
 display:grid;
-grid-template-columns:1fr 420px;
+grid-template-columns:1fr 430px;
 gap:40px;
 align-items:start;
 }
@@ -214,69 +217,93 @@ backdrop-filter:blur(14px);
 }
 
 .box-preview{
-height:420px;
-border-radius:30px;
-position:relative;
-overflow:hidden;
-background:linear-gradient(145deg,#181818,#101010);
+height:460px;
 display:flex;
 justify-content:center;
 align-items:center;
 margin-bottom:25px;
 }
 
-.main-box{
-width:290px;
-height:290px;
-border-radius:35px;
-background:linear-gradient(145deg,#ffb703,#fb8500);
+.real-box{
+width:360px;
+height:360px;
 position:relative;
-overflow:hidden;
-box-shadow:0 20px 40px rgba(0,0,0,.4);
-transition:.5s;
+display:flex;
+justify-content:center;
+align-items:center;
+filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));
+animation:float 4s ease-in-out infinite;
 }
 
-.wrap-overlay{
+@keyframes float{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.box-base{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:contain;
+z-index:1;
+}
+
+#fruitLayer{
 position:absolute;
 inset:0;
-pointer-events:none;
-opacity:.8;
+z-index:2;
 }
 
-.wrap-romantic{
-background:
-linear-gradient(135deg,#ff4d6d44,#ff758f44);
-border:6px solid #ff5f7e;
-}
-
-.wrap-luxury{
-background:
-linear-gradient(135deg,#ffd16633,#ffffff22);
-border:6px solid gold;
-}
-
-.wrap-transparent{
-background:
-rgba(255,255,255,.08);
-backdrop-filter:blur(5px);
-border:4px solid rgba(255,255,255,.4);
-}
-
-.fruit{
+.real-fruit{
 position:absolute;
-font-size:42px;
-animation:pop .4s ease;
+width:75px;
+height:75px;
+object-fit:contain;
+animation:drop .5s ease;
+filter:drop-shadow(0 10px 10px rgba(0,0,0,.3));
 }
 
-@keyframes pop{
+.wrap-image{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:contain;
+z-index:5;
+pointer-events:none;
+}
+
+@keyframes drop{
+
 from{
-transform:scale(0);
+transform:
+translateY(-40px)
+scale(.5)
+rotate(-20deg);
+
 opacity:0;
 }
+
 to{
-transform:scale(1);
+transform:
+translateY(0)
+scale(1)
+rotate(0);
+
 opacity:1;
 }
+
 }
 
 .summary{
@@ -390,17 +417,23 @@ top:0;
 }
 
 </style>
+
 </head>
+
 <body>
 
 <header>
-<div class="logo">FRUZO AI</div>
+
+<div class="logo">
+FRUZO AI
+</div>
 
 <nav>
 <a href="#fruits">الفواكه</a>
 <a href="#addons">الإضافات</a>
 <a href="#wraps">التغليف</a>
 </nav>
+
 </header>
 
 <section class="hero">
@@ -413,7 +446,7 @@ top:0;
 </h1>
 
 <p>
-فاكهة فريش — كاندي — شوكولاتة — تغليف فاخر — AI Preview
+Luxury Fruit Experience — AI Preview — Premium Packaging
 </p>
 
 <button onclick="document.getElementById('fruits').scrollIntoView({behavior:'smooth'})">
@@ -430,16 +463,22 @@ top:0;
 
 <div>
 
-<h2 class="section-title" id="fruits">الفواكه 🍓</h2>
+<h2 class="section-title" id="fruits">
+الفواكه 🍓
+</h2>
 
-<div class="grid">
+<div class="grid">    
+  <div class="card">
 
-<div class="card">
 <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>فراولة</h3>
-<div class="price">45 جنيه</div>
+
+<div class="price">
+45 جنيه
+</div>
 
 <div class="qty">
 <span>الكمية</span>
@@ -447,7 +486,13 @@ top:0;
 </div>
 
 <button class="add-btn"
-onclick="addFruit('🍓','فراولة',45,document.getElementById('q1').value)">
+
+onclick="addFruit(
+'https://pngimg.com/d/strawberry_PNG2593.png',
+'فراولة',
+45,
+document.getElementById('q1').value
+)">
 إضافة
 </button>
 
@@ -455,11 +500,16 @@ onclick="addFruit('🍓','فراولة',45,document.getElementById('q1').value)"
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>مانجو</h3>
-<div class="price">55 جنيه</div>
+
+<div class="price">
+55 جنيه
+</div>
 
 <div class="qty">
 <span>الكمية</span>
@@ -467,7 +517,13 @@ onclick="addFruit('🍓','فراولة',45,document.getElementById('q1').value)"
 </div>
 
 <button class="add-btn"
-onclick="addFruit('🥭','مانجو',55,document.getElementById('q2').value)">
+
+onclick="addFruit(
+'https://pngimg.com/d/mango_PNG9168.png',
+'مانجو',
+55,
+document.getElementById('q2').value
+)">
 إضافة
 </button>
 
@@ -475,11 +531,16 @@ onclick="addFruit('🥭','مانجو',55,document.getElementById('q2').value)">
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>كيوي</h3>
-<div class="price">60 جنيه</div>
+
+<div class="price">
+60 جنيه
+</div>
 
 <div class="qty">
 <span>الكمية</span>
@@ -487,7 +548,13 @@ onclick="addFruit('🥭','مانجو',55,document.getElementById('q2').value)">
 </div>
 
 <button class="add-btn"
-onclick="addFruit('🥝','كيوي',60,document.getElementById('q3').value)">
+
+onclick="addFruit(
+'https://pngimg.com/d/kiwi_PNG4038.png',
+'كيوي',
+60,
+document.getElementById('q3').value
+)">
 إضافة
 </button>
 
@@ -495,11 +562,16 @@ onclick="addFruit('🥝','كيوي',60,document.getElementById('q3').value)">
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>توت</h3>
-<div class="price">70 جنيه</div>
+
+<div class="price">
+70 جنيه
+</div>
 
 <div class="qty">
 <span>الكمية</span>
@@ -507,7 +579,13 @@ onclick="addFruit('🥝','كيوي',60,document.getElementById('q3').value)">
 </div>
 
 <button class="add-btn"
-onclick="addFruit('🫐','توت',70,document.getElementById('q4').value)">
+
+onclick="addFruit(
+'https://pngimg.com/d/blueberries_PNG73.png',
+'توت',
+70,
+document.getElementById('q4').value
+)">
 إضافة
 </button>
 
@@ -523,11 +601,16 @@ onclick="addFruit('🫐','توت',70,document.getElementById('q4').value)">
 <div class="grid">
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>شوكولاتة</h3>
-<div class="price">80 جنيه</div>
+
+<div class="price">
+80 جنيه
+</div>
 
 <button class="add-btn"
 onclick="addAddon('🍫 شوكولاتة',80)">
@@ -538,11 +621,16 @@ onclick="addAddon('🍫 شوكولاتة',80)">
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>فستق</h3>
-<div class="price">60 جنيه</div>
+
+<div class="price">
+60 جنيه
+</div>
 
 <button class="add-btn"
 onclick="addAddon('💚 فستق',60)">
@@ -553,11 +641,16 @@ onclick="addAddon('💚 فستق',60)">
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>كاندي</h3>
-<div class="price">50 جنيه</div>
+
+<div class="price">
+50 جنيه
+</div>
 
 <button class="add-btn"
 onclick="addAddon('🍬 كاندي',50)">
@@ -576,11 +669,16 @@ onclick="addAddon('🍬 كاندي',50)">
 <div class="grid">
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1464306076886-da185f6a9d05?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>رومانسي</h3>
-<div class="price">120 جنيه</div>
+
+<div class="price">
+120 جنيه
+</div>
 
 <button class="add-btn"
 onclick="setWrap('romantic',120)">
@@ -591,11 +689,16 @@ onclick="setWrap('romantic',120)">
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ff?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>Luxury</h3>
-<div class="price">150 جنيه</div>
+
+<div class="price">
+150 جنيه
+</div>
 
 <button class="add-btn"
 onclick="setWrap('luxury',150)">
@@ -606,11 +709,16 @@ onclick="setWrap('luxury',150)">
 </div>
 
 <div class="card">
+
 <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop">
 
 <div class="card-content">
+
 <h3>شفاف</h3>
-<div class="price">90 جنيه</div>
+
+<div class="price">
+90 جنيه
+</div>
 
 <button class="add-btn"
 onclick="setWrap('transparent',90)">
@@ -628,9 +736,16 @@ onclick="setWrap('transparent',90)">
 
 <div class="box-preview">
 
-<div class="main-box" id="mainBox">
+<div class="real-box">
 
-<div class="wrap-overlay" id="wrapOverlay"></div>
+<img class="box-base"
+src="https://i.imgur.com/8QfKuz1.png">
+
+<div id="fruitLayer"></div>
+
+<img class="wrap-image"
+id="wrapImage"
+src="">
 
 </div>
 
@@ -645,7 +760,7 @@ onclick="setWrap('transparent',90)">
 </div>
 
 <div class="loader" id="loader">
-✨ AI Generating Your Box...
+✨ AI Generating Your Luxury Box...
 </div>
 
 <button class="clear" onclick="clearAll()">
@@ -680,42 +795,45 @@ FRUZO AI © 2026
 
 <script>
 
-let total = 0;
-let cart = [];
-let fruitCount = 0;
+let total=0;
 
-function randomPosition(){
-return Math.floor(Math.random()*220);
-}
+let cart=[];
 
-function addFruit(emoji,name,price,qty){
+function addFruit(image,name,price,qty){
 
-qty = parseInt(qty);
+qty=parseInt(qty);
 
 for(let i=0;i<qty;i++){
 
-let fruit = document.createElement('div');
+let fruit=document.createElement('img');
 
-fruit.className='fruit';
+fruit.className='real-fruit';
 
-fruit.innerHTML=emoji;
+fruit.src=image;
 
-fruit.style.left=randomPosition()+'px';
+fruit.style.left=
+(Math.random()*230+40)+'px';
 
-fruit.style.top=randomPosition()+'px';
+fruit.style.top=
+(Math.random()*220+50)+'px';
 
-document.getElementById('mainBox').appendChild(fruit);
+fruit.style.transform=
+`rotate(${Math.random()*40-20}deg)`;
+
+document
+.getElementById('fruitLayer')
+.appendChild(fruit);
 
 }
 
-let itemTotal = price * qty;
+let itemTotal=price*qty;
 
 cart.push({
 name:name,
 price:itemTotal
 });
 
-total += itemTotal;
+total+=itemTotal;
 
 updateCart();
 
@@ -728,7 +846,7 @@ name:name,
 price:price
 });
 
-total += price;
+total+=price;
 
 updateCart();
 
@@ -736,20 +854,28 @@ updateCart();
 
 function setWrap(type,price){
 
-const wrap = document.getElementById('wrapOverlay');
-
-wrap.className='wrap-overlay';
+const wrap=
+document.getElementById('wrapImage');
 
 if(type==='romantic'){
-wrap.classList.add('wrap-romantic');
+
+wrap.src=
+'https://i.imgur.com/U9Z8FqZ.png';
+
 }
 
 if(type==='luxury'){
-wrap.classList.add('wrap-luxury');
+
+wrap.src=
+'https://i.imgur.com/F7xS9Va.png';
+
 }
 
 if(type==='transparent'){
-wrap.classList.add('wrap-transparent');
+
+wrap.src=
+'https://i.imgur.com/eA6KDet.png';
+
 }
 
 cart.push({
@@ -757,7 +883,7 @@ name:'🎁 تغليف '+type,
 price:price
 });
 
-total += price;
+total+=price;
 
 updateCart();
 
@@ -769,27 +895,34 @@ let summary='';
 
 cart.forEach((item,index)=>{
 
-summary += `
+summary+=`
+
 <div class="cart-item">
+
 <span>${item.name}</span>
 
 <div>
+
 <span>${item.price}ج</span>
 
 <button class="remove"
 onclick="removeItem(${index},${item.price})">
+
 ✕
 </button>
+
 </div>
 
 </div>
+
 `;
 
 });
 
-document.getElementById('summary').innerHTML = summary;
+document.getElementById('summary').innerHTML=summary;
 
-document.getElementById('total').innerHTML = total + ' جنيه';
+document.getElementById('total').innerHTML=
+total+' جنيه';
 
 }
 
@@ -797,7 +930,7 @@ function removeItem(index,price){
 
 cart.splice(index,1);
 
-total -= price;
+total-=price;
 
 updateCart();
 
@@ -809,11 +942,15 @@ cart=[];
 
 total=0;
 
-document.getElementById('summary').innerHTML='لا يوجد طلبات بعد';
+document.getElementById('fruitLayer').innerHTML='';
 
-document.getElementById('total').innerHTML='0 جنيه';
+document.getElementById('wrapImage').src='';
 
-document.getElementById('mainBox').innerHTML='<div class=\"wrap-overlay\" id=\"wrapOverlay\"></div>';
+document.getElementById('summary').innerHTML=
+'لا يوجد طلبات بعد';
+
+document.getElementById('total').innerHTML=
+'0 جنيه';
 
 }
 
