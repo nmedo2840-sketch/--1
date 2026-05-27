@@ -1,721 +1,553 @@
-<think>
-The user wants me to apply the corrections to the code. Let me rewrite the complete corrected code with all the fixes I mentioned.
-
-I'll:
-1. Fix the link tag for Google Fonts
-2. Fix the navigation links (add proper href attributes)
-3. Add cart functionality with localStorage
-4. Add form validation
-5. Add toast notifications for better UX
-6. Add loading states for buttons
-7. Improve responsive design
-8. Add a reset cart function
-
-Let me create a complete corrected version of the code.
-</think> الكود المصحح بالكامل ✅
-
-```html
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FRUZO AI - Luxury Fruit Experience</title>
-
-<!-- ✅ تصحيح: إضافة الـ preconnect و rel="stylesheet" -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Cairo',sans-serif;
-}
-
-body{
-background:#070707;
-color:white;
-overflow-x:hidden;
-}
-
-body::before{
-content:'';
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top left,#ff4d6d33,transparent 30%),
-radial-gradient(circle at bottom right,#00ffd533,transparent 30%),
-linear-gradient(135deg,#0d0d0d,#000000);
-z-index:-2;
-}
-
-header{
-position:sticky;
-top:0;
-z-index:999;
-padding:22px 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#00000088;
-backdrop-filter:blur(15px);
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-font-size:36px;
-font-weight:900;
-letter-spacing:2px;
-background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-nav a{
-text-decoration:none;
-color:white;
-margin:0 14px;
-font-size:15px;
-transition:.3s;
-}
-
-nav a:hover{
-color:#ffd166;
-}
-
-/* ✅ جديد: زر السلة */
-.cart-icon {
-position: relative;
-cursor: pointer;
-padding: 10px;
-}
-
-.cart-count {
-position: absolute;
-top: 0;
-right: 0;
-background: #ff5f7e;
-color: white;
-font-size: 12px;
-font-weight: 700;
-width: 22px;
-height: 22px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:60px 6%;
-text-align:center;
-position:relative;
-}
-
-.hero-content{
-max-width:1000px;
-}
-
-.hero h1{
-font-size:76px;
-line-height:1.2;
-margin-bottom:25px;
-font-weight:900;
-}
-
-.gradient{
-background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.hero p{
-font-size:21px;
-line-height:2;
-color:#d7d7d7;
-margin-bottom:40px;
-}
-
-.hero-btn{
-padding:20px 45px;
-border:none;
-border-radius:60px;
-background:linear-gradient(45deg,#ff5f7e,#ff9966);
-font-size:18px;
-font-weight:800;
-color:white;
-cursor:pointer;
-transition:.4s;
-box-shadow:0 20px 40px rgba(255,95,126,.35);
-}
-
-.hero-btn:hover{
-transform:translateY(-5px) scale(1.03);
-}
-
-.floating{
-position:absolute;
-border-radius:50%;
-filter:blur(80px);
-opacity:.35;
-animation:float 8s infinite ease-in-out;
-}
-
-.f1{
-width:250px;
-height:250px;
-background:#ff4d6d;
-top:10%;
-left:5%;
-}
-
-.f2{
-width:280px;
-height:280px;
-background:#00ffd5;
-bottom:10%;
-right:5%;
-}
-
-@keyframes float{
-50%{transform:translateY(-35px)}
-}
-
-.section{
-padding:100px 6%;
-}
-
-.section-title{
-text-align:center;
-font-size:48px;
-margin-bottom:70px;
-font-weight:900;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:28px;
-}
-
-.card{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-border-radius:32px;
-overflow:hidden;
-transition:.4s;
-backdrop-filter:blur(12px);
-position:relative;
-}
-
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 50px rgba(0,0,0,.5);
-}
-
-.card img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
-
-.card-content{
-padding:24px;
-}
-
-.card h3{
-font-size:24px;
-margin-bottom:12px;
-}
-
-.price{
-color:#ffd166;
-font-weight:800;
-font-size:18px;
-margin-bottom:14px;
-}
-
-.card p{
-color:#cfcfcf;
-line-height:1.8;
-}
-
-.qty{
-margin-top:16px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.qty input{
-width:70px;
-padding:10px;
-border:none;
-border-radius:12px;
-background:#1d1d1d;
-color:white;
-text-align:center;
-}
-
-/* ✅ جديد: حالة تحميل الزر */
-.add-btn{
-margin-top:18px;
-width:100%;
-padding:15px;
-border:none;
-border-radius:18px;
-background:linear-gradient(45deg,#00ffd5,#00b4ff);
-font-weight:800;
-font-size:16px;
-color:#111;
-cursor:pointer;
-transition:.3s;
-}
-
-.add-btn:hover{
-transform:scale(1.03);
-}
-
-.add-btn:disabled{
-opacity:0.6;
-cursor:not-allowed;
-transform: none;
-}
-
-.preview-container{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-align-items:center;
-background:rgba(255,255,255,.05);
-padding:40px;
-border-radius:35px;
-border:1px solid rgba(255,255,255,.08);
-}
-
-.preview-box{
-position:relative;
-height:600px;
-border-radius:35px;
-overflow:hidden;
-background:#111;
-}
-
-.preview-box img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition: opacity 0.5s ease;
-}
-
-.ai-badge{
-position:absolute;
-top:20px;
-left:20px;
-padding:12px 18px;
-border-radius:30px;
-background:#000000aa;
-backdrop-filter:blur(10px);
-font-size:14px;
-font-weight:700;
-z-index:10;
-}
-
-.summary h2{
-font-size:44px;
-margin-bottom:25px;
-}
-
-.summary-list{
-line-height:2.2;
-font-size:17px;
-color:#ddd;
-margin-bottom:25px;
-min-height: 60px;
-}
-
-.total{
-font-size:38px;
-font-weight:900;
-color:#ffd166;
-margin-bottom:30px;
-}
-
-.form-group{
-margin-bottom:18px;
-position: relative;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-width:100%;
-padding:17px;
-border:none;
-border-radius:18px;
-background:#171717;
-color:white;
-font-size:16px;
-transition: border-color 0.3s;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-outline:none;
-border:2px solid #00ffd5;
-}
-
-/* ✅ جديد: رسالة خطأ */
-.form-group .error-msg{
-color: #ff4d6d;
-font-size: 13px;
-margin-top: 5px;
-display: none;
-}
-
-.form-group input.error,
-.form-group textarea.error{
-border: 2px solid #ff4d6d;
-}
-
-.form-group input.error + .error-msg,
-.form-group textarea.error + .error-msg{
-display: block;
-}
-
-.checkout-btn{
-width:100%;
-padding:20px;
-border:none;
-border-radius:20px;
-background:linear-gradient(45deg,#ff5f7e,#ff9966);
-font-size:19px;
-font-weight:900;
-color:white;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 15px 35px rgba(255,95,126,.35);
-position: relative;
-overflow: hidden;
-}
-
-.checkout-btn:hover{
-transform:translateY(-5px);
-}
-
-.checkout-btn:disabled{
-opacity: 0.6;
-cursor: not-allowed;
-transform: none;
-}
-
-/* ✅ جديد: Toast Notifications */
-.toast {
-position: fixed;
-top: 100px;
-right: -400px;
-background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 16px;
-padding: 18px 28px;
-z-index: 10000;
-transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-display: flex;
-align-items: center;
-gap: 15px;
-}
-
-.toast.show{
-right: 30px;
-}
-
-.toast.success{
-border-right: 5px solid #00ffd5;
-}
-
-.toast.error{
-border-right: 5px solid #ff4d6d;
-}
-
-.toast-icon{
-font-size: 24px;
-}
-
-/* ✅ جديد: Alert Modal */
-.modal-overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.8);
-z-index:9999;
-display:none;
-align-items:center;
-justify-content:center;
-}
-
-.modal-overlay.show{
-display:flex;
-}
-
-.modal{
-background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
-border-radius:24px;
-padding:40px;
-max-width:400px;
-text-align:center;
-border:1px solid rgba(255,255,255,0.1);
-}
-
-.modal h3{
-font-size:24px;
-margin-bottom:15px;
-}
-
-.modal p{
-margin-bottom:25px;
-color:#ccc;
-line-height:1.6;
-}
-
-.modal-btn{
-padding:15px 40px;
-border:none;
-border-radius:50px;
-background:linear-gradient(45deg,#ff5f7e,#ff9966);
-color:white;
-font-weight:800;
-cursor:pointer;
-}
-
-.ai-loader{
-display:none;
-margin-bottom:20px;
-font-weight:700;
-color:#00ffd5;
-animation:pulse 1s infinite;
-}
-
-@keyframes pulse{
-50%{opacity:.4}
-}
-
-/* ✅ جديد: Empty Cart State */
-.empty-cart{
-text-align:center;
-padding:40px;
-color:#888;
-}
-
-.empty-cart-icon{
-font-size:60px;
-margin-bottom:15px;
-}
-
-footer{
-padding:50px;
-text-align:center;
-color:#999;
-}
-
-/* ✅ جديد: Responsive Design محسّن */
-@media(max-width: 950px){
-.hero h1{
-font-size:46px;
-}
-
-.preview-container{
-grid-template-columns:1fr;
-}
-
-.preview-box{
-height:420px;
-}
-
-.header{
-padding: 15px 4%;
-}
-
-.logo{
-font-size: 28px;
-}
-
-nav a{
-margin: 0 8px;
-font-size: 13px;
-}
-}
-
-@media(max-width: 600px){
-.hero h1{
-font-size: 32px;
-}
-
-.hero p{
-font-size: 16px;
-}
-
-.section-title{
-font-size: 32px;
-}
-
-.grid{
-grid-template-columns: 1fr;
-}
-
-.preview-box{
-height: 300px;
-}
-
-.summary h2{
-font-size: 28px;
-}
-
-.total{
-font-size: 28px;
-}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRUZO | Premium Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fruzoGold: '#D4A373', 
+                        fruzoDarkGreen: '#1A3323', 
+                        fruzoBg: '#FDFBF7',
+                        // ألوان كروت الـ Shop الباستيل
+                        pastelGreen: '#D8F3DC',
+                        pastelBlue: '#D8ECF8',
+                        pastelPink: '#FAD2E1',
+                        pastelOrange: '#FFE5D9',
+                        pastelPurple: '#E8E8F4',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* أنيميشن الدخول الناعم للكروت والصفحات */
+        .page-active {
+            animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-fruzoBg text-neutral-800 antialiased font-sans flex flex-col min-h-screen">
 
-<div class="floating f1"></div>
-<div class="floating f2"></div>
+    <header class="border-b border-neutral-100 bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center">
+                <button onclick="switchPage('home')" class="focus:outline-none flex items-center gap-3 group">
+                    <img src="https://res.cloudinary.com/dq9azsujw/image/upload/q_auto/f_auto/v1779922257/Gemini_Generated_Image_6xn7bq6xn7bq6xn7_hy1rzq.png" 
+                         alt="FRUZO Logo" 
+                         class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-fruzoGold shadow-md transition transform group-hover:scale-105">
+                    <span class="text-xl sm:text-2xl font-bold tracking-wider text-fruzoGold font-serif hidden sm:inline">FRUZO</span>
+                </button>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <button id="nav-home" onclick="switchPage('home')" class="text-fruzoGold border-b-2 border-fruzoGold pb-1 transition font-medium">Home</button>
+                <button id="nav-shop" onclick="switchPage('shop')" class="text-neutral-500 hover:text-fruzoGold pb-1 transition font-medium">Shop</button>
+                <button class="text-neutral-500 hover:text-fruzoGold pb-1 transition font-medium cursor-not-allowed">About</button>
+                <button class="text-neutral-500 hover:text-fruzoGold pb-1 transition font-medium cursor-not-allowed">Contact</button>
+            </nav>
+            
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="switchPage('cart')" class="text-neutral-700 hover:text-fruzoGold transition relative focus:outline-none p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-fruzoGold text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
+                </button>
 
-<header>
-<div class="logo">FRUZO AI</div>
-<nav>
-<!-- ✅ تصحيح: إضافة href كاملة -->
-<a href="#fruits">الفواكه</a>
-<a href="#addons">الإضافات</a>
-<a href="#preview">المعاينة</a>
-<!-- ✅ جديد: أيقونة السلة -->
-<div class="cart-icon" onclick="document.getElementById('preview').scrollIntoView({behavior:'smooth'})">
-<span>🛒</span>
-<span class="cart-count" id="cartCount">0</span>
-</div>
-</nav>
-</header>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-neutral-700 hover:text-fruzoGold p-2 focus:outline-none">
+                    <svg id="menu-icon-hamburger" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
 
-<section class="hero">
-<div class="hero-content">
-<h1>
-اصنع <span class="gradient">بوكس الفاكهة</span><br>
-الخيالي بالذكاء الاصطناعي ✨
-</h1>
-<p>
-فاكهة فريش — فواكه مجمدة — كاندي — شوكولاتة — تغليف فاخر — AI Preview واقعي للطلب قبل التوصيل
-</p>
-<button class="hero-btn" onclick="document.getElementById('fruits').scrollIntoView({behavior:'smooth'})">
-ابدأ تصميم البوكس
-</button>
-</div>
-</section>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-neutral-100 px-4 pt-2 pb-6 space-y-3 shadow-inner">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="block w-full text-left text-neutral-600 hover:text-fruzoGold font-medium py-2">Home</button>
+            <button onclick="switchPage('shop'); toggleMobileMenu();" class="block w-full text-left text-neutral-600 hover:text-fruzoGold font-medium py-2">Shop</button>
+            <button class="block w-full text-left text-neutral-300 font-medium py-2 cursor-not-allowed">About</button>
+            <button class="block w-full text-left text-neutral-300 font-medium py-2 cursor-not-allowed">Contact</button>
+        </div>
+    </header>
 
-<section class="section" id="fruits">
-<h2 class="section-title">اختر الف fruits 🍓</h2>
+    <div class="flex-grow w-full">
 
-<div class="grid">
+        <div id="page-home" class="page-view block">
+            <section class="relative h-[70vh] sm:h-[85vh] bg-neutral-900 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&q=80&w=1600" alt="Luxury Fruit Platter" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10">
+                    <h1 class="text-3xl sm:text-6xl lg:text-7xl font-serif text-white mb-4 tracking-tight drop-shadow-md">Luxury Meets Nature</h1>
+                    <p class="text-neutral-200 text-sm sm:text-xl max-w-xl mb-8 font-light leading-relaxed">Discover premium fruits and artisanal products, beautifully packaged and delivered with care.</p>
+                    <button onclick="switchPage('shop')" class="inline-flex items-center gap-2 bg-fruzoGold hover:bg-opacity-90 text-white font-medium px-6 sm:px-8 py-3 rounded-md transition transform hover:-translate-y-0.5 shadow-lg focus:outline-none text-sm sm:text-base">
+                        Shop Now
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5l6 6m0 0l-6 6m6-6H4.5" /></svg>
+                    </button>
+                </div>
+            </section>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>فراولة</h3>
-<div class="price">45 جنيه</div>
-<p>فراولة فريش Premium</p>
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" max="20" id="strawberryQty">
-</div>
-<button class="add-btn" id="strawberryBtn" onclick="addItem('فراولة',45,'strawberry')">إضافة</button>
-</div>
-</div>
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+                <div class="text-center mb-10 sm:text-center sm:mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-serif text-neutral-900 mb-2">Our Collections</h2>
+                    <p class="text-neutral-500 tracking-wide text-xs sm:text-sm">Explore our curated selection of premium products</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
+                    <button onclick="switchPage('shop')" class="w-full text-left flex items-center justify-between p-4 sm:p-6 bg-white border border-neutral-100 rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5 group focus:outline-none">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="p-3 sm:p-4 bg-amber-50 text-fruzoGold rounded-xl"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2-1.75-3.75-3.75-3.75s-3.75 1.75-3.75 3.75M3 8.25c0-2 1.75-3.75 3.75-3.75S10.5 6.25 10.5 8.25M12 21a9 9 0 100-18 9 9 0 000 18z"/></svg></div>
+                            <div>
+                                <h3 class="font-semibold text-base sm:text-lg text-neutral-900">Fresh Fruits</h3>
+                                <p class="text-xs text-neutral-400">Hand-picked seasonal fruits at peak ripeness</p>
+                            </div>
+                        </div>
+                        <div class="text-neutral-400 group-hover:text-fruzoGold transition transform group-hover:translate-x-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></div>
+                    </button>
+                    <button onclick="switchPage('shop')" class="w-full text-left flex items-center justify-between p-4 sm:p-6 bg-white border border-neutral-100 rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5 group focus:outline-none">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="p-3 sm:p-4 bg-amber-50 text-fruzoGold rounded-xl"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M5.25 5.25l13.5 13.5M18.75 5.25L5.25 18.75"/></svg></div>
+                            <div>
+                                <h3 class="font-semibold text-base sm:text-lg text-neutral-900">Frozen Fruits</h3>
+                                <p class="text-xs text-neutral-400">Flash-frozen to preserve natural sweetness</p>
+                            </div>
+                        </div>
+                        <div class="text-neutral-400 group-hover:text-fruzoGold transition transform group-hover:translate-x-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></div>
+                    </button>
+                </div>
+            </section>
+        </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>مانجو</h3>
-<div class="price">55 جنيه</div>
-<p>مانجو استوائي فاخر</p>
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" max="20" id="mangoQty">
-</div>
-<button class="add-btn" id="mangoBtn" onclick="addItem('مانجو',55,'mango')">إضافة</button>
-</div>
-</div>
+        <div id="page-shop" class="page-view hidden">
+            <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 w-full">
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl sm:text-5xl font-serif text-neutral-900 mb-2">Shop by Category</h1>
+                    <p class="text-neutral-500 tracking-wide text-xs sm:text-sm">Explore our curated collections of premium products</p>
+                </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>كيوي</h3>
-<div class="price">60 جنيه</div>
-<p>كيوي مستورد طازج</p>
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" max="20" id="kiwiQty">
-</div>
-<button class="add-btn" id="kiwiBtn" onclick="addItem('كيوي',60,'kiwi')">إضافة</button>
-</div>
-</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+                    <div onclick="switchPage('cat-fresh')" class="bg-pastelGreen p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-56 sm:h-64 shadow-sm hover:shadow-md transition transform hover:-translate-y-1 cursor-pointer group">
+                        <div class="flex justify-between items-start">
+                            <div class="p-3 sm:p-4 bg-white rounded-xl text-fruzoGold shadow-sm"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2-1.75-3.75-3.75-3.75s-3.75 1.75-3.75 3.75M3 8.25c0-2 1.75-3.75 3.75-3.75S10.5 6.25 10.5 8.25M12 21a9 9 0 100-18 9 9 0 000 18z"/></svg></div>
+                            <span class="text-xs font-medium text-neutral-600 flex items-center gap-1 group-hover:translate-x-0.5 transition">View All <span>→</span></span>
+                        </div>
+                        <div><h3 class="font-serif font-bold text-xl sm:text-2xl text-neutral-900 mb-1 sm:mb-2">Fresh Fruits</h3><p class="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[240px]">Hand-picked seasonal fruits at peak ripeness.</p></div>
+                    </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>توت</h3>
-<div class="price">70 جنيه</div>
-<p>توت أزرق فاخر</p>
-<div class="qty">
-<span>الكمية</span>
-<input type="number" value="1" min="1" max="20" id="berryQty">
-</div>
-<button class="add-btn" id="berryBtn" onclick="addItem('توت',70,'berry')">إضافة</button>
-</div>
-</div>
+                    <div onclick="switchPage('cat-frozen')" class="bg-pastelBlue p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-56 sm:h-64 shadow-sm hover:shadow-md transition transform hover:-translate-y-1 cursor-pointer group">
+                        <div class="flex justify-between items-start">
+                            <div class="p-3 sm:p-4 bg-white rounded-xl text-fruzoGold shadow-sm"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M5.25 5.25l13.5 13.5M18.75 5.25L5.25 18.75"/></svg></div>
+                            <span class="text-xs font-medium text-neutral-600 flex items-center gap-1 group-hover:translate-x-0.5 transition">View All <span>→</span></span>
+                        </div>
+                        <div><h3 class="font-serif font-bold text-xl sm:text-2xl text-neutral-900 mb-1 sm:mb-2">Frozen Fruits</h3><p class="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[240px]">Flash-frozen to preserve natural sweetness.</p></div>
+                    </div>
 
-</div>
-</section>
+                    <div onclick="switchPage('cat-candy')" class="bg-pastelPink p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-56 sm:h-64 shadow-sm hover:shadow-md transition transform hover:-translate-y-1 cursor-pointer group">
+                        <div class="flex justify-between items-start">
+                            <div class="p-3 sm:p-4 bg-white rounded-xl text-fruzoGold shadow-sm"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div>
+                            <span class="text-xs font-medium text-neutral-600 flex items-center gap-1 group-hover:translate-x-0.5 transition">View All <span>→</span></span>
+                        </div>
+                        <div><h3 class="font-serif font-bold text-xl sm:text-2xl text-neutral-900 mb-1 sm:mb-2">Candy</h3><p class="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[240px]">Artisanal sweets crafted with care.</p></div>
+                    </div>
 
-<section class="section" id="addons">
-<h2 class="section-title">الإضافات والتغليف 🍫</h2>
+                    <div onclick="switchPage('cat-chocolate')" class="bg-pastelOrange p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-56 sm:h-64 shadow-sm hover:shadow-md transition transform hover:-translate-y-1 cursor-pointer group">
+                        <div class="flex justify-between items-start">
+                            <div class="p-3 sm:p-4 bg-white rounded-xl text-fruzoGold shadow-sm"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                            <span class="text-xs font-medium text-neutral-600 flex items-center gap-1 group-hover:translate-x-0.5 transition">View All <span>→</span></span>
+                        </div>
+                        <div><h3 class="font-serif font-bold text-xl sm:text-2xl text-neutral-900 mb-1 sm:mb-2">Chocolate</h3><p class="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[240px]">Premium chocolates from master chocolatiers.</p></div>
+                    </div>
 
-<div class="grid">
+                    <div onclick="switchPage('cat-packaging')" class="bg-pastelPurple p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-56 sm:h-64 shadow-sm hover:shadow-md transition transform hover:-translate-y-1 cursor-pointer group">
+                        <div class="flex justify-between items-start">
+                            <div class="p-3 sm:p-4 bg-white rounded-xl text-fruzoGold shadow-sm"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.5v16.5m-7.5-6h15M12 4.5a3 3 0 110-6 3 3 0 010 6z"/></svg></div>
+                            <span class="text-xs font-medium text-neutral-600 flex items-center gap-1 group-hover:translate-x-0.5 transition">View All <span>→</span></span>
+                        </div>
+                        <div><h3 class="font-serif font-bold text-xl sm:text-2xl text-neutral-900 mb-1 sm:mb-2">Premium Packaging</h3><p class="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[240px]">Elegant gift boxes and wrapping paper.</p></div>
+                    </div>
+                </div>
+            </main>
+        </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>شوكولاتة بلجيكي</h3>
-<div class="price">80 جنيه</div>
-<button class="add-btn" id="chocolateBtn" onclick="addAddon('شوكولاتة بلجيكي',80)">إضافة</button>
-</div>
-</div>
+        <div id="page-cat-fresh" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center mb-8 border-b pb-4 border-neutral-100">
+                <h1 class="text-2xl sm:text-4xl font-serif text-neutral-900">Fresh Fruits</h1>
+                <button onclick="switchPage('shop')" class="text-xs sm:text-sm font-medium text-fruzoGold hover:underline">← Categories</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Blueberries">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Blueberries</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Antioxidant-rich blueberries with natural sweetness.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$35</span><button onclick="addToCart('Blueberries', 35)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Grapes">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Grapes</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Crisp and refreshing green and red grapes.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$30</span><button onclick="addToCart('Grapes', 30)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Mangoes">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Mangoes</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Golden, ripe mangoes with tropical flavor.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$45</span><button onclick="addToCart('Mangoes', 45)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>فستق</h3>
-<div class="price">60 جنيه</div>
-<button class="add-btn" id="pistachioBtn" onclick="addAddon('فستق',60)">إضافة</button>
-</div>
-</div>
+        <div id="page-cat-frozen" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center mb-8 border-b pb-4 border-neutral-100">
+                <h1 class="text-2xl sm:text-4xl font-serif text-neutral-900">Frozen Fruits</h1>
+                <button onclick="switchPage('shop')" class="text-xs sm:text-sm font-medium text-fruzoGold hover:underline">← Categories</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Frozen Berries Mix">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Frozen Berries Mix</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Convenient blend of frozen strawberries and blueberries.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$20</span><button onclick="addToCart('Frozen Berries Mix', 20)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Frozen Mango Chunks">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Frozen Mango Chunks</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Pre-cut frozen mango pieces ready for smoothies.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$28</span><button onclick="addToCart('Frozen Mango Chunks', 28)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>كاندي ميكس</h3>
-<div class="price">50 جنيه</div>
-<button class="add-btn" id="candyBtn" onclick="addAddon('كاندي ميكس',50)">إضافة</button>
-</div>
-</div>
+        <div id="page-cat-candy" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center mb-8 border-b pb-4 border-neutral-100">
+                <h1 class="text-2xl sm:text-4xl font-serif text-neutral-900">Candy</h1>
+                <button onclick="switchPage('shop')" class="text-xs sm:text-sm font-medium text-fruzoGold hover:underline">← Categories</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Gummy Bears">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Gummy Bears</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Colorful, fruity gummy bears loved by all.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$10</span><button onclick="addToCart('Gummy Bears', 10)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ff?q=80&w=1200&auto=format&fit=crop">
-<div class="card-content">
-<h3>تغليف روم
+        <div id="page-cat-chocolate" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center mb-8 border-b pb-4 border-neutral-100">
+                <h1 class="text-2xl sm:text-4xl font-serif text-neutral-900">Chocolate</h1>
+                <button onclick="switchPage('shop')" class="text-xs sm:text-sm font-medium text-fruzoGold hover:underline">← Categories</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1548907040-4d42b52125ca?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Dark Chocolate Truffles">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Dark Chocolate Truffles</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Rich, decadent dark chocolate truffles.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$30</span><button onclick="addToCart('Dark Chocolate Truffles', 30)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-cat-packaging" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center mb-8 border-b pb-4 border-neutral-100">
+                <h1 class="text-2xl sm:text-4xl font-serif text-neutral-900">Premium Packaging</h1>
+                <button onclick="switchPage('shop')" class="text-xs sm:text-sm font-medium text-fruzoGold hover:underline">← Categories</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl overflow-hidden border border-neutral-100 shadow-sm flex flex-col">
+                    <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=80&w=600" class="w-full h-48 sm:h-64 object-cover" alt="Luxury Gift Box">
+                    <div class="p-4 sm:p-6 flex flex-grow flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg sm:text-xl mb-1">Luxury Gift Box</h3>
+                            <p class="text-xs text-neutral-400 mb-4">Spacious luxury gift box for premium collections.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto"><span class="text-lg sm:text-xl font-bold text-fruzoGold">$40</span><button onclick="addToCart('Luxury Gift Box', 40)" class="bg-fruzoGold text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition">Add to Cart</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-cart" class="page-view hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <div class="border-b pb-4 border-neutral-100 mb-6 sm:mb-8 flex justify-between items-center">
+                <h1 class="text-2xl sm:text-4xl font-serif text-neutral-900">Your Cart</h1>
+                <button onclick="switchPage('shop')" class="text-xs sm:text-sm text-fruzoGold font-medium hover:underline">Continue Shopping</button>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-neutral-100 p-4 sm:p-6 shadow-sm">
+                <div id="empty-cart-message" class="text-center py-10">
+                    <p class="text-neutral-400 mb-4 text-sm sm:text-base">Your cart is currently empty.</p>
+                    <button onclick="switchPage('shop')" class="bg-fruzoGold text-white px-6 py-2 rounded-lg text-xs sm:text-sm font-medium">Browse Products</button>
+                </div>
+
+                <div id="cart-content" class="hidden space-y-6">
+                    <div id="cart-items-list" class="divide-y divide-neutral-100">
+                        </div>
+
+                    <div class="pt-6 border-t border-neutral-100 flex flex-col items-stretch sm:items-end">
+                        <div class="flex justify-between sm:justify-end items-center gap-12 mb-6">
+                            <span class="text-neutral-500 font-medium text-sm sm:text-base">Total Amount:</span>
+                            <span id="cart-total-price" class="text-2xl sm:text-3xl font-bold text-fruzoDarkGreen">$0</span>
+                        </div>
+                        <button onclick="checkoutToWhatsApp()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.948 0c3.176.001 6.163 1.24 8.407 3.483 2.245 2.244 3.481 5.231 3.482 8.412-.004 6.599-5.342 11.947-11.892 11.947-.001 0-.001 0 0 0-2.016-.001-3.998-.543-5.739-1.569L0 24zm6.59-4.846c1.673.993 3.334 1.487 5.293 1.488 5.4 0 9.792-4.402 9.795-9.814a9.757 9.757 0 0 0-2.868-6.938 9.722 9.722 0 0 0-6.927-2.867c-5.404 0-9.8 4.403-9.803 9.814-.001 2.053.549 3.518 1.464 5.02L2.43 21.512l4.217-1.358z"/></svg>
+                            Confirm Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="bg-fruzoDarkGreen text-neutral-300 pt-12 pb-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 border-b border-emerald-900/40 pb-8">
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <img src="https://res.cloudinary.com/dq9azsujw/image/upload/q_auto/f_auto/v1779922257/Gemini_Generated_Image_6xn7bq6xn7bq6xn7_hy1rzq.png" 
+                         alt="FRUZO Logo Footer" 
+                         class="w-10 h-10 rounded-full object-cover border border-fruzoGold">
+                    <h3 class="text-xl sm:text-2xl font-serif text-fruzoGold font-bold tracking-wider">FRUZO</h3>
+                </div>
+                <p class="text-xs sm:text-sm leading-relaxed text-neutral-400">Premium fruits and luxury products delivered to your doorstep.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-medium text-xs uppercase tracking-wider mb-3">Quick Links</h4>
+                <ul class="space-y-1 text-xs sm:text-sm text-neutral-400">
+                    <li><button onclick="switchPage('home')" class="hover:text-fruzoGold transition">Home</button></li>
+                    <li><button onclick="switchPage('shop')" class="hover:text-fruzoGold transition">Shop</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-medium text-xs uppercase tracking-wider mb-3">Contact</h4>
+                <p class="text-xs sm:text-sm text-neutral-400">+20 127 946 8804</p>
+                <p class="text-xs sm:text-sm text-neutral-400">hello@fruzo.com</p>
+            </div>
+            <div>
+                <h4 class="text-white font-medium text-xs uppercase tracking-wider mb-3">Follow Us</h4>
+                <div class="flex space-x-3 text-xs text-neutral-400"><a href="#" class="hover:text-fruzoGold">FB</a><a href="#" class="hover:text-fruzoGold">IG</a></div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 text-[11px] text-neutral-500 text-center">
+            © 2026 FRUZO. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        // القائمة المتجاوبة للموبايل
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('menu-icon-hamburger');
+            const closeIcon = document.getElementById('menu-icon-close');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                hamburger.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                hamburger.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        }
+
+        // نظام التنقل والأنيميشن بين الصفحات
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('block', 'page-active');
+            });
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('block', 'page-active');
+            }
+
+            const navHome = document.getElementById('nav-home');
+            const navShop = document.getElementById('nav-shop');
+            if(navHome && navShop) {
+                if (pageId === 'home') {
+                    navHome.className = "text-fruzoGold border-b-2 border-fruzoGold pb-1 transition font-medium";
+                    navShop.className = "text-neutral-500 hover:text-fruzoGold pb-1 transition font-medium";
+                } else {
+                    navShop.className = "text-fruzoGold border-b-2 border-fruzoGold pb-1 transition font-medium";
+                    navHome.className = "text-neutral-500 hover:text-fruzoGold pb-1 transition font-medium";
+                }
+            }
+
+            if(pageId === 'cart') {
+                renderCart();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إضافة منتج للسلة
+        function addToCart(name, price) {
+            const existingProduct = cart.find(item => item.name === name);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            updateCartBadge();
+            alert(`${name} has been added to your cart! 🛒`);
+        }
+
+        // تعديل الكميات
+        function changeQuantity(name, amount) {
+            const product = cart.find(item => item.name === name);
+            if (product) {
+                product.quantity += amount;
+                if (product.quantity <= 0) {
+                    cart = cart.filter(item => item.name !== name);
+                }
+                updateCartBadge();
+                renderCart();
+            }
+        }
+
+        // حذف منتج
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartBadge();
+            renderCart();
+        }
+
+        // تحديث شارة عداد السلة في الهيدر
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // بناء وعرض عناصر السلة
+        function renderCart() {
+            const emptyMessage = document.getElementById('empty-cart-message');
+            const cartContent = document.getElementById('cart-content');
+            const itemsList = document.getElementById('cart-items-list');
+            const totalPriceElement = document.getElementById('cart-total-price');
+
+            if (cart.length === 0) {
+                emptyMessage.classList.remove('hidden');
+                cartContent.classList.add('hidden');
+                return;
+            }
+
+            emptyMessage.classList.add('hidden');
+            cartContent.classList.remove('hidden');
+            itemsList.innerHTML = '';
+
+            let totalAmount = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+
+                itemsList.innerHTML += `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between py-4 gap-3">
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-neutral-800 text-base sm:text-lg">${item.name}</h3>
+                            <p class="text-xs sm:text-sm text-neutral-400">Price: $${item.price} each</p>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-6 border-t sm:border-t-0 pt-2 sm:pt-0">
+                            <div class="flex items-center border border-neutral-200 rounded-lg overflow-hidden bg-neutral-50">
+                                <button onclick="changeQuantity('${item.name}', -1)" class="px-2 py-1 text-neutral-500 hover:bg-neutral-200 font-bold text-sm">-</button>
+                                <span class="px-3 py-1 text-xs font-semibold text-neutral-800">${item.quantity}</span>
+                                <button onclick="changeQuantity('${item.name}', 1)" class="px-2 py-1 text-neutral-500 hover:bg-neutral-200 font-bold text-sm">+</button>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="font-bold text-neutral-900 text-sm sm:text-base">$${itemTotal}</span>
+                                <button onclick="removeFromCart('${item.name}')" class="text-red-500 hover:text-red-700 text-xs sm:text-sm font-medium">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            totalPriceElement.innerText = `$${totalAmount}`;
+        }
+
+        // تجميع البيانات وإرسال الطلب للواتساب
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) return;
+
+            let phoneNumber = "201279468804";
+            let message = `*جديد: طلب شراء من متجر FRUZO* 🛒\n\n`;
+            message += `مرحباً محمد، أود تأكيد طلب الشراء التالي:\n`;
+            message += `----------------------------------\n`;
+
+            let totalAmount = 0;
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+                message += `${index + 1}. *${item.name}*\n    الكمية: ${item.quantity} | السعر: $${itemTotal}\n`;
+            });
+
+            message += `----------------------------------\n`;
+            message += `*المبلغ الإجمالي المطلـوب:* $${totalAmount}\n\n`;
+            message += `يرجى التواصل لتأكيد الشحن والتوصيل المستعجل. ✨`;
+
+            let encodedMessage = encodeURIComponent(message);
+            let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
