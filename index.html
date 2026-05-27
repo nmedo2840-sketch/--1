@@ -1,77 +1,721 @@
+<think>
+The user wants me to apply the corrections to the code. Let me rewrite the complete corrected code with all the fixes I mentioned.
+
+I'll:
+1. Fix the link tag for Google Fonts
+2. Fix the navigation links (add proper href attributes)
+3. Add cart functionality with localStorage
+4. Add form validation
+5. Add toast notifications for better UX
+6. Add loading states for buttons
+7. Improve responsive design
+8. Add a reset cart function
+
+Let me create a complete corrected version of the code.
+</think> الكود المصحح بالكامل ✅
+
+```html
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUZO AI - Luxury Fruit Experience</title>
+
+<!-- ✅ تصحيح: إضافة الـ preconnect و rel="stylesheet" -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+background:#070707;
+color:white;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#ff4d6d33,transparent 30%),
+radial-gradient(circle at bottom right,#00ffd533,transparent 30%),
+linear-gradient(135deg,#0d0d0d,#000000);
+z-index:-2;
+}
+
+header{
+position:sticky;
+top:0;
+z-index:999;
+padding:22px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#00000088;
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-size:36px;
+font-weight:900;
+letter-spacing:2px;
+background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+margin:0 14px;
+font-size:15px;
+transition:.3s;
+}
+
+nav a:hover{
+color:#ffd166;
+}
+
+/* ✅ جديد: زر السلة */
+.cart-icon {
+position: relative;
+cursor: pointer;
+padding: 10px;
+}
+
+.cart-count {
+position: absolute;
+top: 0;
+right: 0;
+background: #ff5f7e;
+color: white;
+font-size: 12px;
+font-weight: 700;
+width: 22px;
+height: 22px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:60px 6%;
+text-align:center;
+position:relative;
+}
+
+.hero-content{
+max-width:1000px;
+}
+
+.hero h1{
+font-size:76px;
+line-height:1.2;
+margin-bottom:25px;
+font-weight:900;
+}
+
+.gradient{
+background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+font-size:21px;
+line-height:2;
+color:#d7d7d7;
+margin-bottom:40px;
+}
+
+.hero-btn{
+padding:20px 45px;
+border:none;
+border-radius:60px;
+background:linear-gradient(45deg,#ff5f7e,#ff9966);
+font-size:18px;
+font-weight:800;
+color:white;
+cursor:pointer;
+transition:.4s;
+box-shadow:0 20px 40px rgba(255,95,126,.35);
+}
+
+.hero-btn:hover{
+transform:translateY(-5px) scale(1.03);
+}
+
+.floating{
+position:absolute;
+border-radius:50%;
+filter:blur(80px);
+opacity:.35;
+animation:float 8s infinite ease-in-out;
+}
+
+.f1{
+width:250px;
+height:250px;
+background:#ff4d6d;
+top:10%;
+left:5%;
+}
+
+.f2{
+width:280px;
+height:280px;
+background:#00ffd5;
+bottom:10%;
+right:5%;
+}
+
+@keyframes float{
+50%{transform:translateY(-35px)}
+}
+
+.section{
+padding:100px 6%;
+}
+
+.section-title{
+text-align:center;
+font-size:48px;
+margin-bottom:70px;
+font-weight:900;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:28px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:32px;
+overflow:hidden;
+transition:.4s;
+backdrop-filter:blur(12px);
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.card-content{
+padding:24px;
+}
+
+.card h3{
+font-size:24px;
+margin-bottom:12px;
+}
+
+.price{
+color:#ffd166;
+font-weight:800;
+font-size:18px;
+margin-bottom:14px;
+}
+
+.card p{
+color:#cfcfcf;
+line-height:1.8;
+}
+
+.qty{
+margin-top:16px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.qty input{
+width:70px;
+padding:10px;
+border:none;
+border-radius:12px;
+background:#1d1d1d;
+color:white;
+text-align:center;
+}
+
+/* ✅ جديد: حالة تحميل الزر */
+.add-btn{
+margin-top:18px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:18px;
+background:linear-gradient(45deg,#00ffd5,#00b4ff);
+font-weight:800;
+font-size:16px;
+color:#111;
+cursor:pointer;
+transition:.3s;
+}
+
+.add-btn:hover{
+transform:scale(1.03);
+}
+
+.add-btn:disabled{
+opacity:0.6;
+cursor:not-allowed;
+transform: none;
+}
+
+.preview-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+background:rgba(255,255,255,.05);
+padding:40px;
+border-radius:35px;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.preview-box{
+position:relative;
+height:600px;
+border-radius:35px;
+overflow:hidden;
+background:#111;
+}
+
+.preview-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition: opacity 0.5s ease;
+}
+
+.ai-badge{
+position:absolute;
+top:20px;
+left:20px;
+padding:12px 18px;
+border-radius:30px;
+background:#000000aa;
+backdrop-filter:blur(10px);
+font-size:14px;
+font-weight:700;
+z-index:10;
+}
+
+.summary h2{
+font-size:44px;
+margin-bottom:25px;
+}
+
+.summary-list{
+line-height:2.2;
+font-size:17px;
+color:#ddd;
+margin-bottom:25px;
+min-height: 60px;
+}
+
+.total{
+font-size:38px;
+font-weight:900;
+color:#ffd166;
+margin-bottom:30px;
+}
+
+.form-group{
+margin-bottom:18px;
+position: relative;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+width:100%;
+padding:17px;
+border:none;
+border-radius:18px;
+background:#171717;
+color:white;
+font-size:16px;
+transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+outline:none;
+border:2px solid #00ffd5;
+}
+
+/* ✅ جديد: رسالة خطأ */
+.form-group .error-msg{
+color: #ff4d6d;
+font-size: 13px;
+margin-top: 5px;
+display: none;
+}
+
+.form-group input.error,
+.form-group textarea.error{
+border: 2px solid #ff4d6d;
+}
+
+.form-group input.error + .error-msg,
+.form-group textarea.error + .error-msg{
+display: block;
+}
+
+.checkout-btn{
+width:100%;
+padding:20px;
+border:none;
+border-radius:20px;
+background:linear-gradient(45deg,#ff5f7e,#ff9966);
+font-size:19px;
+font-weight:900;
+color:white;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 15px 35px rgba(255,95,126,.35);
+position: relative;
+overflow: hidden;
+}
+
+.checkout-btn:hover{
+transform:translateY(-5px);
+}
+
+.checkout-btn:disabled{
+opacity: 0.6;
+cursor: not-allowed;
+transform: none;
+}
+
+/* ✅ جديد: Toast Notifications */
+.toast {
+position: fixed;
+top: 100px;
+right: -400px;
+background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 16px;
+padding: 18px 28px;
+z-index: 10000;
+transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.toast.show{
+right: 30px;
+}
+
+.toast.success{
+border-right: 5px solid #00ffd5;
+}
+
+.toast.error{
+border-right: 5px solid #ff4d6d;
+}
+
+.toast-icon{
+font-size: 24px;
+}
+
+/* ✅ جديد: Alert Modal */
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.8);
+z-index:9999;
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modal-overlay.show{
+display:flex;
+}
+
+.modal{
+background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
+border-radius:24px;
+padding:40px;
+max-width:400px;
+text-align:center;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.modal h3{
+font-size:24px;
+margin-bottom:15px;
+}
+
+.modal p{
+margin-bottom:25px;
+color:#ccc;
+line-height:1.6;
+}
+
+.modal-btn{
+padding:15px 40px;
+border:none;
+border-radius:50px;
+background:linear-gradient(45deg,#ff5f7e,#ff9966);
+color:white;
+font-weight:800;
+cursor:pointer;
+}
+
+.ai-loader{
+display:none;
+margin-bottom:20px;
+font-weight:700;
+color:#00ffd5;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+50%{opacity:.4}
+}
+
+/* ✅ جديد: Empty Cart State */
+.empty-cart{
+text-align:center;
+padding:40px;
+color:#888;
+}
+
+.empty-cart-icon{
+font-size:60px;
+margin-bottom:15px;
+}
+
+footer{
+padding:50px;
+text-align:center;
+color:#999;
+}
+
+/* ✅ جديد: Responsive Design محسّن */
+@media(max-width: 950px){
+.hero h1{
+font-size:46px;
+}
+
+.preview-container{
+grid-template-columns:1fr;
+}
+
+.preview-box{
+height:420px;
+}
+
+.header{
+padding: 15px 4%;
+}
+
+.logo{
+font-size: 28px;
+}
+
+nav a{
+margin: 0 8px;
+font-size: 13px;
+}
+}
+
+@media(max-width: 600px){
+.hero h1{
+font-size: 32px;
+}
+
+.hero p{
+font-size: 16px;
+}
+
+.section-title{
+font-size: 32px;
+}
+
+.grid{
+grid-template-columns: 1fr;
+}
+
+.preview-box{
+height: 300px;
+}
+
+.summary h2{
+font-size: 28px;
+}
+
+.total{
+font-size: 28px;
+}
+}
+</style>
 </head>
-<body style="font-family:Arial;background:#111;color:white;padding:20px">
+<body>
 
-<h2>Admin Panel</h2>
+<div class="floating f1"></div>
+<div class="floating f2"></div>
 
-<input id="name" placeholder="اسم المنتج"><br><br>
-<input id="price" placeholder="السعر"><br><br>
-<input id="img" placeholder="رابط الصورة"><br><br>
-<input id="desc" placeholder="الوصف"><br><br>
-
-<button onclick="addProduct()">إضافة</button>
-
-<hr>
-
-<div id="list"></div>
-
-<script>
-
-function getProducts(){
-return JSON.parse(localStorage.getItem("products") || "[]");
-}
-
-function saveProducts(p){
-localStorage.setItem("products", JSON.stringify(p));
-}
-
-function addProduct(){
-
-let products = getProducts();
-
-products.push({
-name: document.getElementById("name").value || "بدون اسم",
-price: document.getElementById("price").value || 0,
-img: document.getElementById("img").value || "",
-desc: document.getElementById("desc").value || ""
-});
-
-saveProducts(products);
-render();
-}
-
-function deleteProduct(i){
-let products = getProducts();
-products.splice(i,1);
-saveProducts(products);
-render();
-}
-
-function render(){
-
-let products = getProducts();
-let html = "";
-
-products.forEach((p,i)=>{
-html += `
-<div style="background:#222;padding:10px;margin:10px 0">
-<h3>${p.name}</h3>
-<p>${p.price} جنيه</p>
-<button onclick="deleteProduct(${i})">حذف</button>
+<header>
+<div class="logo">FRUZO AI</div>
+<nav>
+<!-- ✅ تصحيح: إضافة href كاملة -->
+<a href="#fruits">الفواكه</a>
+<a href="#addons">الإضافات</a>
+<a href="#preview">المعاينة</a>
+<!-- ✅ جديد: أيقونة السلة -->
+<div class="cart-icon" onclick="document.getElementById('preview').scrollIntoView({behavior:'smooth'})">
+<span>🛒</span>
+<span class="cart-count" id="cartCount">0</span>
 </div>
-`;
-});
+</nav>
+</header>
 
-document.getElementById("list").innerHTML = html;
-}
+<section class="hero">
+<div class="hero-content">
+<h1>
+اصنع <span class="gradient">بوكس الفاكهة</span><br>
+الخيالي بالذكاء الاصطناعي ✨
+</h1>
+<p>
+فاكهة فريش — فواكه مجمدة — كاندي — شوكولاتة — تغليف فاخر — AI Preview واقعي للطلب قبل التوصيل
+</p>
+<button class="hero-btn" onclick="document.getElementById('fruits').scrollIntoView({behavior:'smooth'})">
+ابدأ تصميم البوكس
+</button>
+</div>
+</section>
 
-render();
+<section class="section" id="fruits">
+<h2 class="section-title">اختر الف fruits 🍓</h2>
 
-</script>
+<div class="grid">
 
-</body>
-</html>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>فراولة</h3>
+<div class="price">45 جنيه</div>
+<p>فراولة فريش Premium</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" max="20" id="strawberryQty">
+</div>
+<button class="add-btn" id="strawberryBtn" onclick="addItem('فراولة',45,'strawberry')">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>مانجو</h3>
+<div class="price">55 جنيه</div>
+<p>مانجو استوائي فاخر</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" max="20" id="mangoQty">
+</div>
+<button class="add-btn" id="mangoBtn" onclick="addItem('مانجو',55,'mango')">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>كيوي</h3>
+<div class="price">60 جنيه</div>
+<p>كيوي مستورد طازج</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" max="20" id="kiwiQty">
+</div>
+<button class="add-btn" id="kiwiBtn" onclick="addItem('كيوي',60,'kiwi')">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>توت</h3>
+<div class="price">70 جنيه</div>
+<p>توت أزرق فاخر</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" max="20" id="berryQty">
+</div>
+<button class="add-btn" id="berryBtn" onclick="addItem('توت',70,'berry')">إضافة</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="addons">
+<h2 class="section-title">الإضافات والتغليف 🍫</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>شوكولاتة بلجيكي</h3>
+<div class="price">80 جنيه</div>
+<button class="add-btn" id="chocolateBtn" onclick="addAddon('شوكولاتة بلجيكي',80)">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>فستق</h3>
+<div class="price">60 جنيه</div>
+<button class="add-btn" id="pistachioBtn" onclick="addAddon('فستق',60)">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>كاندي ميكس</h3>
+<div class="price">50 جنيه</div>
+<button class="add-btn" id="candyBtn" onclick="addAddon('كاندي ميكس',50)">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ff?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>تغليف روم
