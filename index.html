@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRUZO AI - Luxury Fruit Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+background:#070707;
+color:white;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,#ff4d6d33,transparent 30%),
+radial-gradient(circle at bottom right,#00ffd533,transparent 30%),
+linear-gradient(135deg,#0d0d0d,#000000);
+z-index:-2;
+}
+
+header{
+position:sticky;
+top:0;
+z-index:999;
+padding:22px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#00000088;
+backdrop-filter:blur(15px);
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-size:36px;
+font-weight:900;
+letter-spacing:2px;
+background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+margin:0 14px;
+font-size:15px;
+transition:.3s;
+}
+
+nav a:hover{
+color:#ffd166;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:60px 6%;
+text-align:center;
+position:relative;
+}
+
+.hero-content{
+max-width:1000px;
+}
+
+.hero h1{
+font-size:76px;
+line-height:1.2;
+margin-bottom:25px;
+font-weight:900;
+}
+
+.gradient{
+background:linear-gradient(45deg,#ff5f7e,#ffd166,#00ffd5);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+font-size:21px;
+line-height:2;
+color:#d7d7d7;
+margin-bottom:40px;
+}
+
+.hero-btn{
+padding:20px 45px;
+border:none;
+border-radius:60px;
+background:linear-gradient(45deg,#ff5f7e,#ff9966);
+font-size:18px;
+font-weight:800;
+color:white;
+cursor:pointer;
+transition:.4s;
+box-shadow:0 20px 40px rgba(255,95,126,.35);
+}
+
+.hero-btn:hover{
+transform:translateY(-5px) scale(1.03);
+}
+
+.floating{
+position:absolute;
+border-radius:50%;
+filter:blur(80px);
+opacity:.35;
+animation:float 8s infinite ease-in-out;
+}
+
+.f1{
+width:250px;
+height:250px;
+background:#ff4d6d;
+top:10%;
+left:5%;
+}
+
+.f2{
+width:280px;
+height:280px;
+background:#00ffd5;
+bottom:10%;
+right:5%;
+}
+
+@keyframes float{
+50%{transform:translateY(-35px)}
+}
+
+.section{
+padding:100px 6%;
+}
+
+.section-title{
+text-align:center;
+font-size:48px;
+margin-bottom:70px;
+font-weight:900;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:28px;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:32px;
+overflow:hidden;
+transition:.4s;
+backdrop-filter:blur(12px);
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.card-content{
+padding:24px;
+}
+
+.card h3{
+font-size:24px;
+margin-bottom:12px;
+}
+
+.price{
+color:#ffd166;
+font-weight:800;
+font-size:18px;
+margin-bottom:14px;
+}
+
+.card p{
+color:#cfcfcf;
+line-height:1.8;
+}
+
+.qty{
+margin-top:16px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.qty input{
+width:70px;
+padding:10px;
+border:none;
+border-radius:12px;
+background:#1d1d1d;
+color:white;
+text-align:center;
+}
+
+.add-btn{
+margin-top:18px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:18px;
+background:linear-gradient(45deg,#00ffd5,#00b4ff);
+font-weight:800;
+font-size:16px;
+color:#111;
+cursor:pointer;
+transition:.3s;
+}
+
+.add-btn:hover{
+transform:scale(1.03);
+}
+
+.preview-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+background:rgba(255,255,255,.05);
+padding:40px;
+border-radius:35px;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.preview-box{
+position:relative;
+height:600px;
+border-radius:35px;
+overflow:hidden;
+background:#111;
+}
+
+.preview-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.ai-badge{
+position:absolute;
+top:20px;
+left:20px;
+padding:12px 18px;
+border-radius:30px;
+background:#000000aa;
+backdrop-filter:blur(10px);
+font-size:14px;
+font-weight:700;
+}
+
+.summary h2{
+font-size:44px;
+margin-bottom:25px;
+}
+
+.summary-list{
+line-height:2.2;
+font-size:17px;
+color:#ddd;
+margin-bottom:25px;
+}
+
+.total{
+font-size:38px;
+font-weight:900;
+color:#ffd166;
+margin-bottom:30px;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+width:100%;
+padding:17px;
+border:none;
+border-radius:18px;
+background:#171717;
+color:white;
+font-size:16px;
+}
+
+.checkout-btn{
+width:100%;
+padding:20px;
+border:none;
+border-radius:20px;
+background:linear-gradient(45deg,#ff5f7e,#ff9966);
+font-size:19px;
+font-weight:900;
+color:white;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 15px 35px rgba(255,95,126,.35);
+}
+
+.checkout-btn:hover{
+transform:translateY(-5px);
+}
+
+.ai-loader{
+display:none;
+margin-bottom:20px;
+font-weight:700;
+color:#00ffd5;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+50%{opacity:.4}
+}
+
+footer{
+padding:50px;
+text-align:center;
+color:#999;
+}
+
+@media(max-width:950px){
+.hero h1{
+font-size:46px;
+}
+
+.preview-container{
+grid-template-columns:1fr;
+}
+
+.preview-box{
+height:420px;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="floating f1"></div>
+<div class="floating f2"></div>
+
+<header>
+<div class="logo">FRUZO AI</div>
+<nav>
+<a href="#fruits">الفواكه</a>
+<a href="#addons">الإضافات</a>
+<a href="#preview">المعاينة</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-content">
+<h1>
+اصنع <span class="gradient">بوكس الفاكهة</span><br>
+الخيالي بالذكاء الاصطناعي ✨
+</h1>
+<p>
+فاكهة فريش — فواكه مجمدة — كاندي — شوكولاتة — تغليف فاخر — AI Preview واقعي للطلب قبل التوصيل
+</p>
+<button class="hero-btn" onclick="document.getElementById('fruits').scrollIntoView({behavior:'smooth'})">
+ابدأ تصميم البوكس
+</button>
+</div>
+</section>
+
+<section class="section" id="fruits">
+<h2 class="section-title">اختر الفواكه 🍓</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>فراولة</h3>
+<div class="price">45 جنيه</div>
+<p>فراولة فريش Premium</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" id="strawberryQty">
+</div>
+<button class="add-btn" onclick="addItem('فراولة',45,'strawberry')">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>مانجو</h3>
+<div class="price">55 جنيه</div>
+<p>مانجو استوائي فاخر</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" id="mangoQty">
+</div>
+<button class="add-btn" onclick="addItem('مانجو',55,'mango')">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>كيوي</h3>
+<div class="price">60 جنيه</div>
+<p>كيوي مستورد طازج</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" id="kiwiQty">
+</div>
+<button class="add-btn" onclick="addItem('كيوي',60,'kiwi')">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>توت</h3>
+<div class="price">70 جنيه</div>
+<p>توت أزرق فاخر</p>
+<div class="qty">
+<span>الكمية</span>
+<input type="number" value="1" min="1" id="berryQty">
+</div>
+<button class="add-btn" onclick="addItem('توت',70,'berry')">إضافة</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="addons">
+<h2 class="section-title">الإضافات والتغليف 🍫</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>شوكولاتة بلجيكي</h3>
+<div class="price">80 جنيه</div>
+<button class="add-btn" onclick="addAddon('شوكولاتة بلجيكي',80)">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>فستق</h3>
+<div class="price">60 جنيه</div>
+<button class="add-btn" onclick="addAddon('فستق',60)">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>كاندي ميكس</h3>
+<div class="price">50 جنيه</div>
+<button class="add-btn" onclick="addAddon('كاندي ميكس',50)">إضافة</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0ff?q=80&w=1200&auto=format&fit=crop">
+<div class="card-content">
+<h3>تغليف رومانسي</h3>
+<div class="price">120 جنيه</div>
+<button class="add-btn" onclick="changeWrap('Romantic')">اختيار</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="preview">
+<h2 class="section-title">AI Preview ✨</h2>
+
+<div class="preview-container">
+
+<div class="preview-box">
+<div class="ai-badge">AI Generated Preview</div>
+<img id="previewImage" src="https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop">
+</div>
+
+<div class="summary">
+<h2>طلبك الحالي</h2>
+
+<div class="ai-loader" id="loader">
+✨ AI Generating Your Fruit Box...
+</div>
+
+<div class="summary-list" id="summaryList">
+لم يتم اختيار أي منتجات بعد.
+</div>
+
+<div class="total" id="totalPrice">
+الإجمالي: 0 جنيه
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="الاسم بالكامل">
+</div>
+
+<div class="form-group">
+<input type="tel" placeholder="رقم الهاتف">
+</div>
+
+<div class="form-group">
+<input type="text" placeholder="العنوان بالتفصيل">
+</div>
+
+<div class="form-group">
+<select>
+<option>الدفع عند الاستلام</option>
+<option>InstaPay</option>
+<option>Vodafone Cash</option>
+</select>
+</div>
+
+<div class="form-group">
+<textarea rows="4" placeholder="ملاحظات إضافية"></textarea>
+</div>
+
+<button class="checkout-btn" onclick="sendOrder()">
+تأكيد الطلب الآن
+</button>
+
+</div>
+
+</div>
+</section>
+
+<footer>
+FRUZO AI © 2026 — Luxury Fruit Experience
+</footer>
+
+<script>
+let total = 0;
+let selectedItems = [];
+let currentWrap = 'Classic';
+
+const images = {
+classic:'https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1200&auto=format&fit=crop',
+romantic:'https://images.unsplash.com/photo-1464306076886-da185f6a9d05?q=80&w=1200&auto=format&fit=crop',
+strawberry:'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1200&auto=format&fit=crop',
+mango:'https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop',
+kiwi:'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop',
+berry:'https://images.unsplash.com/photo-1519996529931-28324d5a630e?q=80&w=1200&auto=format&fit=crop'
+};
+
+function addItem(name,price,type){
+let qty = 1;
+
+if(type === 'strawberry') qty = parseInt(document.getElementById('strawberryQty').value);
+if(type === 'mango') qty = parseInt(document.getElementById('mangoQty').value);
+if(type === 'kiwi') qty = parseInt(document.getElementById('kiwiQty').value);
+if(type === 'berry') qty = parseInt(document.getElementById('berryQty').value);
+
+let itemTotal = price * qty;
+
+total += itemTotal;
+selectedItems.push(`${name} × ${qty}`);
+
+updateSummary();
+showAI(type);
+}
+
+function addAddon(name,price){
+selectedItems.push(name);
+total += price;
+updateSummary();
+showAI('classic');
+}
+
+function changeWrap(type){
+currentWrap = type;
+selectedItems.push('تغليف رومانسي فاخر');
+total += 120;
+updateSummary();
+showAI('romantic');
+}
+
+function updateSummary(){
+document.getElementById('summaryList').innerHTML = selectedItems.join('<br>');
+document.getElementById('totalPrice').innerHTML = `الإجمالي: ${total} جنيه`;
+}
+
+function showAI(type){
+document.getElementById('loader').style.display='block';
+
+setTimeout(()=>{
+document.getElementById('loader').style.display='none';
+document.getElementById('previewImage').src = images[type];
+},1500);
+}
+
+function sendOrder(){
+alert('✨ تم إرسال الطلب بنجاح وسيتم التواصل معك قريباً');
+}
+</script>
+
+</body>
+</html>
