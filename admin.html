@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+<style>
+body{font-family:Arial;background:#111;color:white;padding:20px}
+input,button{padding:10px;margin:5px;width:100%}
+.card{background:#222;padding:10px;margin:10px 0}
+</style>
+</head>
+<body>
+
+<h2>🧠 لوحة تحكم الأدمن</h2>
+
+<input id="name" placeholder="اسم المنتج">
+<input id="price" placeholder="السعر">
+<input id="img" placeholder="رابط الصورة">
+<input id="desc" placeholder="الوصف">
+
+<button onclick="addProduct()">➕ إضافة منتج</button>
+
+<h3>📦 المنتجات</h3>
+<div id="list"></div>
+
+<script>
+
+let products = JSON.parse(localStorage.getItem("products") || "[]");
+
+function save(){
+localStorage.setItem("products",JSON.stringify(products));
+render();
+}
+
+function addProduct(){
+
+products.push({
+name:document.getElementById("name").value,
+price:document.getElementById("price").value,
+img:document.getElementById("img").value,
+desc:document.getElementById("desc").value
+});
+
+save();
+}
+
+function deleteProduct(i){
+products.splice(i,1);
+save();
+}
+
+function render(){
+
+let html="";
+
+products.forEach((p,i)=>{
+html+=`
+<div class="card">
+<h4>${p.name}</h4>
+<p>${p.price} جنيه</p>
+<button onclick="deleteProduct(${i})">حذف</button>
+</div>
+`;
+});
+
+document.getElementById("list").innerHTML=html;
+}
+
+render();
+
+</script>
+
+</body>
+</html>
